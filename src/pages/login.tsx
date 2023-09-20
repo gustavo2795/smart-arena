@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, StyleSheet, SafeAreaView, Image, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Image, KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import Input from '../components/Input/Input';
+import SignInForm from '../components/SignInForm/SignInForm';
+import SignUpForm from '../components/SignUpForm/SignUpForm';
+
 
 const Login = () => {
+    const [isRegister, setIsRegister] = useState(false)
     return (
         <LinearGradient style={{flex: 1}} colors={['#00b09b', '#96c93d']}>
         <SafeAreaView style={styles.container}>
@@ -15,47 +18,9 @@ const Login = () => {
                 <Text style={{ fontSize: 16, color: '#ffffff' }}>Organizando o seu esporte</Text>
             </View>
             <KeyboardAvoidingView behavior='padding' style={styles.formContainer}>
-                <ScrollView>
-                    <Text style={{fontSize: 22, fontWeight: '700', marginVertical: 15}}>Entre com sua conta</Text>
-                    <Input
-                        placeholder='Digite seu email'
-                        keyboardType='email-address'
-                        label='Email'
-                    />
-                    <Input
-                        placeholder='Digite sua senha'
-                        keyboardType='password'
-                        label='Senha'
-                        isPassword={true}
-                    />
-                    <TouchableOpacity onPress={() => console.log('teste')}>
-                    <LinearGradient 
-                        style={{
-                            width: '100%',
-                            height: 48,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            borderRadius: 12,
-                            marginVertical: 15
-                        }} 
-                        colors={['#00b09b', '#96c93d']}
-                    >
-                        <Text style={{ fontSize: 20, fontWeight: '600', color: '#ffffff'}}>Entrar</Text>
-                    </LinearGradient>
-                    </TouchableOpacity>
-                    <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                        <Text style={{fontSize: 16, fontWeight: '400', marginVertical: 15}}>Não possui conta?</Text>
-                        <TouchableOpacity onPress={() => console.log('cadastrar')}>
-                        <Text 
-                            style={{fontSize: 16, fontWeight: '400', color: '#00b09b', marginVertical: 15, marginLeft: 10}}
-                        >
-                            Cadastrar
-                        </Text>
-                        </TouchableOpacity>
-                    </View>
-                    
-                </ScrollView>
+                {isRegister ? <SignUpForm setIsRegister={setIsRegister} /> : <SignInForm setIsRegister={setIsRegister} />}
             </KeyboardAvoidingView>
+            
         </SafeAreaView>
         </LinearGradient>
     );
